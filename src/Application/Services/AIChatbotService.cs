@@ -42,7 +42,7 @@ public class AIChatbotService : IAIChatbotService
             };
         }
     }
-    public async Task<ChatbotResponse> GetBalanceInquiryAsync(Guid memberId)
+    public async Task<ChatbotResponse> GetBalanceInquiryAsync(int memberId)
     {
         var activeLoan = await _context.Loans
             .Where(l => l.MemberId == memberId && 
@@ -87,7 +87,7 @@ Installments Paid: {activeLoan.PaidInstallments} of {activeLoan.DurationInWeeks}
             }
         };
     }
-    public async Task<ChatbotResponse> GetNextPaymentAsync(Guid memberId)
+    public async Task<ChatbotResponse> GetNextPaymentAsync(int memberId)
     {
         var activeLoan = await _context.Loans
             .Where(l => l.MemberId == memberId && 
@@ -146,7 +146,7 @@ Breakdown:
             }
         };
     }
-    public async Task<ChatbotResponse> GetLoanStatusAsync(Guid memberId)
+    public async Task<ChatbotResponse> GetLoanStatusAsync(int memberId)
     {
         var loans = await _context.Loans
             .Where(l => l.MemberId == memberId)

@@ -21,8 +21,8 @@ public class Member : BaseEntity
     public string NomineeRelation { get; set; } = string.Empty;
     public string NomineePhone { get; set; } = string.Empty;
     public string NomineeNID { get; set; } = string.Empty;
-    public Guid BranchId { get; set; }
-    public Guid GroupId { get; set; }
+    public int BranchId { get; set; }
+    public int GroupId { get; set; }
     public MemberStatus Status { get; set; } = MemberStatus.Active;
     public DateTime JoinDate { get; set; }
     public string? PhotoPath { get; set; }

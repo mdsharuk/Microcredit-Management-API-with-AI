@@ -2,7 +2,7 @@ using Domain.Enums;
 namespace Domain.Entities;
 public class Installment : BaseEntity
 {
-    public Guid LoanId { get; set; }
+    public int LoanId { get; set; }
     public int InstallmentNumber { get; set; }
     public DateTime DueDate { get; set; }
     public decimal PrincipalAmount { get; set; }

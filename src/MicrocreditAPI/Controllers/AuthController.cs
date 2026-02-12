@@ -62,7 +62,6 @@ public class AuthController : ControllerBase
         }
         var user = new User
         {
-            Id = Guid.NewGuid(),
             Username = registerDto.Username,
             Email = registerDto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
@@ -116,5 +115,5 @@ public class RegisterDto
     public string FullName { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public UserRole Role { get; set; }
-    public Guid? BranchId { get; set; }
+    public int? BranchId { get; set; }
 }

@@ -4,9 +4,9 @@ public class Group : BaseEntity
 {
     public string GroupCode { get; set; } = string.Empty;
     public string GroupName { get; set; } = string.Empty;
-    public Guid BranchId { get; set; }
-    public Guid? FieldOfficerId { get; set; }
-    public Guid? LeaderId { get; set; }
+    public int BranchId { get; set; }
+    public int? FieldOfficerId { get; set; }
+    public int? LeaderId { get; set; }
     public DayOfWeek MeetingDay { get; set; }
     public TimeSpan MeetingTime { get; set; }
     public GroupStatus Status { get; set; } = GroupStatus.Forming;

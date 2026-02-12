@@ -17,7 +17,7 @@ public class GroupsController : ControllerBase
         _context = context;
     }
     [HttpGet]
-    public async Task<IActionResult> GetGroups([FromQuery] Guid? branchId = null)
+    public async Task<IActionResult> GetGroups([FromQuery] int? branchId = null)
     {
         var query = _context.Groups
             .Include(g => g.Branch)
@@ -31,7 +31,7 @@ public class GroupsController : ControllerBase
         return Ok(groups);
     }
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetGroup(Guid id)
+    public async Task<IActionResult> GetGroup(int id)
     {
         var group = await _context.Groups
             .Include(g => g.Branch)
@@ -49,7 +49,6 @@ public class GroupsController : ControllerBase
         var groupCode = await GenerateGroupCodeAsync(dto.BranchId);
         var group = new Group
         {
-            Id = Guid.NewGuid(),
             GroupCode = groupCode,
             GroupName = dto.GroupName,
             BranchId = dto.BranchId,
@@ -66,7 +65,7 @@ public class GroupsController : ControllerBase
         return CreatedAtAction(nameof(GetGroup), new { id = group.Id }, group);
     }
     [HttpPut("{id}/activate")]
-    public async Task<IActionResult> ActivateGroup(Guid id)
+    public async Task<IActionResult> ActivateGroup(int id)
     {
         var group = await _context.Groups
             .Include(g => g.Members)
@@ -88,7 +87,7 @@ public class GroupsController : ControllerBase
         return Ok(group);
     }
     [HttpPut("{id}/set-leader/{memberId}")]
-    public async Task<IActionResult> SetGroupLeader(Guid id, Guid memberId)
+    public async Task<IActionResult> SetGroupLeader(int id, int memberId)
     {
         var group = await _context.Groups.FindAsync(id);
         if (group == null)
@@ -103,7 +102,7 @@ public class GroupsController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(group);
     }
-    private async Task<string> GenerateGroupCodeAsync(Guid branchId)
+    private async Task<string> GenerateGroupCodeAsync(int branchId)
     {
         var branch = await _context.Branches.FindAsync(branchId);
         var branchCode = branch?.BranchCode ?? "BR";

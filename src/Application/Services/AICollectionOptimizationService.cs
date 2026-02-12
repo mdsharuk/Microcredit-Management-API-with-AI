@@ -33,7 +33,7 @@ public class AICollectionOptimizationService : IAICollectionOptimizationService
             PredictedNextMonthRecovery = Math.Round(predictedCollection, 2)
         };
     }
-    private async Task<List<BranchPerformanceInsight>> GetBranchInsightsAsync(Guid? branchId = null)
+    private async Task<List<BranchPerformanceInsight>> GetBranchInsightsAsync(int? branchId = null)
     {
         var branches = await _context.Branches
             .Where(b => !branchId.HasValue || b.Id == branchId.Value)
@@ -91,7 +91,7 @@ public class AICollectionOptimizationService : IAICollectionOptimizationService
         }
         return insights.OrderBy(i => i.RecoveryRate).ToList();
     }
-    private async Task<List<OfficerPerformanceInsight>> GetOfficerInsightsAsync(Guid? officerId = null)
+    private async Task<List<OfficerPerformanceInsight>> GetOfficerInsightsAsync(int? officerId = null)
     {
         await Task.CompletedTask;
         return new List<OfficerPerformanceInsight>();
@@ -168,7 +168,7 @@ public class AICollectionOptimizationService : IAICollectionOptimizationService
         }
         return highRiskAreas.OrderByDescending(a => a.DefaultRate).ToList();
     }
-    public async Task<decimal> PredictNextMonthCollectionAsync(Guid? branchId = null)
+    public async Task<decimal> PredictNextMonthCollectionAsync(int? branchId = null)
     {
         var upcomingInstallments = await _context.Installments
             .Include(i => i.Loan)

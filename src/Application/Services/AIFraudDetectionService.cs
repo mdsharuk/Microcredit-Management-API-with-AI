@@ -156,7 +156,7 @@ public class AIFraudDetectionService : IAIFraudDetectionService
             return false;
         return await Task.FromResult(true);
     }
-    public async Task<FraudDetectionResponse> DetectSuspiciousGroupAsync(Guid groupId)
+    public async Task<FraudDetectionResponse> DetectSuspiciousGroupAsync(int groupId)
     {
         var group = await _context.Groups
             .Include(g => g.Members)

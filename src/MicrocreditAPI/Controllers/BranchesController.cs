@@ -24,7 +24,7 @@ public class BranchesController : ControllerBase
         return Ok(branches);
     }
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetBranch(Guid id)
+    public async Task<IActionResult> GetBranch(int id)
     {
         var branch = await _context.Branches
             .Include(b => b.Manager)
@@ -40,7 +40,6 @@ public class BranchesController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateBranch([FromBody] Branch branch)
     {
-        branch.Id = Guid.NewGuid();
         branch.CreatedAt = DateTime.UtcNow;
         _context.Branches.Add(branch);
         await _context.SaveChangesAsync();
@@ -48,7 +47,7 @@ public class BranchesController : ControllerBase
     }
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> UpdateBranch(Guid id, [FromBody] Branch branch)
+    public async Task<IActionResult> UpdateBranch(int id, [FromBody] Branch branch)
     {
         if (id != branch.Id)
             return BadRequest();

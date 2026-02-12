@@ -3,9 +3,9 @@ namespace Domain.Entities;
 public class Payment : BaseEntity
 {
     public string PaymentCode { get; set; } = string.Empty;
-    public Guid LoanId { get; set; }
-    public Guid MemberId { get; set; }
-    public Guid? InstallmentId { get; set; }
+    public int LoanId { get; set; }
+    public int MemberId { get; set; }
+    public int? InstallmentId { get; set; }
     public DateTime PaymentDate { get; set; }
     public decimal PrincipalPaid { get; set; }
     public decimal InterestPaid { get; set; }
@@ -13,7 +13,7 @@ public class Payment : BaseEntity
     public decimal TotalAmount { get; set; }
     public PaymentMethod PaymentMethod { get; set; }
     public string? TransactionReference { get; set; }
-    public Guid CollectedBy { get; set; }
+    public int CollectedBy { get; set; }
     public string? Remarks { get; set; }
     // Navigation
     public Loan Loan { get; set; } = null!;

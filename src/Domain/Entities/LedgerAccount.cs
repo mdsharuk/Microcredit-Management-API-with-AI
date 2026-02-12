@@ -5,7 +5,7 @@ public class LedgerAccount : BaseEntity
     public string AccountCode { get; set; } = string.Empty;
     public string AccountName { get; set; } = string.Empty;
     public AccountType AccountType { get; set; }
-    public Guid? ParentAccountId { get; set; }
+    public int? ParentAccountId { get; set; }
     public decimal Balance { get; set; }
     public bool IsActive { get; set; } = true;
     // Navigation

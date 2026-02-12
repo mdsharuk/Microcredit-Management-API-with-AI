@@ -116,7 +116,7 @@ public class FraudDetectionController : ControllerBase
     [HttpGet("group/{groupId}")]
     [Authorize(Roles = "Admin,BranchManager")]
     [ProducesResponseType(typeof(FraudDetectionResponse), 200)]
-    public async Task<IActionResult> DetectSuspiciousGroup(Guid groupId)
+    public async Task<IActionResult> DetectSuspiciousGroup(int groupId)
     {
         try
         {
@@ -148,21 +148,21 @@ public class ChatbotController : ControllerBase
     }
     [HttpGet("balance/{memberId}")]
     [ProducesResponseType(typeof(ChatbotResponse), 200)]
-    public async Task<IActionResult> GetBalance(Guid memberId)
+    public async Task<IActionResult> GetBalance(int memberId)
     {
         var result = await _chatbotService.GetBalanceInquiryAsync(memberId);
         return Ok(result);
     }
     [HttpGet("next-payment/{memberId}")]
     [ProducesResponseType(typeof(ChatbotResponse), 200)]
-    public async Task<IActionResult> GetNextPayment(Guid memberId)
+    public async Task<IActionResult> GetNextPayment(int memberId)
     {
         var result = await _chatbotService.GetNextPaymentAsync(memberId);
         return Ok(result);
     }
     [HttpGet("loan-status/{memberId}")]
     [ProducesResponseType(typeof(ChatbotResponse), 200)]
-    public async Task<IActionResult> GetLoanStatus(Guid memberId)
+    public async Task<IActionResult> GetLoanStatus(int memberId)
     {
         var result = await _chatbotService.GetLoanStatusAsync(memberId);
         return Ok(result);

@@ -44,7 +44,7 @@ public class CollectionOptimizationController : ControllerBase
     }
     [HttpGet("predict-collection")]
     [ProducesResponseType(typeof(decimal), 200)]
-    public async Task<IActionResult> PredictNextMonthCollection([FromQuery] Guid? branchId = null)
+    public async Task<IActionResult> PredictNextMonthCollection([FromQuery] int? branchId = null)
     {
         var predicted = await _optimizationService.PredictNextMonthCollectionAsync(branchId);
         return Ok(new 

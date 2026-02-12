@@ -2,13 +2,13 @@ namespace Application.DTOs;
 // AI Risk Assessment DTOs
 public class RiskAssessmentRequest
 {
-    public Guid MemberId { get; set; }
+    public int MemberId { get; set; }
     public decimal RequestedAmount { get; set; }
     public int DurationInWeeks { get; set; }
 }
 public class RiskAssessmentResponse
 {
-    public Guid MemberId { get; set; }
+    public int MemberId { get; set; }
     public string MemberName { get; set; } = string.Empty;
     public decimal RiskScore { get; set; } // 0-100 (0=safest, 100=riskiest)
     public string RiskCategory { get; set; } = string.Empty; // Low, Medium, High
@@ -20,13 +20,13 @@ public class RiskAssessmentResponse
 // Late Payment Prediction DTOs
 public class LatePaymentPredictionRequest
 {
-    public Guid MemberId { get; set; }
-    public Guid LoanId { get; set; }
-    public Guid InstallmentId { get; set; }
+    public int MemberId { get; set; }
+    public int LoanId { get; set; }
+    public int InstallmentId { get; set; }
 }
 public class LatePaymentPredictionResponse
 {
-    public Guid InstallmentId { get; set; }
+    public int InstallmentId { get; set; }
     public DateTime DueDate { get; set; }
     public decimal Amount { get; set; }
     public decimal ProbabilityOfDelay { get; set; } // 0-100%
@@ -39,11 +39,11 @@ public class LatePaymentPredictionResponse
 // Fraud Detection DTOs
 public class FraudDetectionRequest
 {
-    public Guid? MemberId { get; set; }
+    public int? MemberId { get; set; }
     public string? NID { get; set; }
     public string? Phone { get; set; }
     public string? Address { get; set; }
-    public Guid? GroupId { get; set; }
+    public int? GroupId { get; set; }
 }
 public class FraudDetectionResponse
 {
@@ -62,7 +62,7 @@ public class FraudAlert
 // AI Chatbot DTOs
 public class ChatbotRequest
 {
-    public Guid MemberId { get; set; }
+    public int MemberId { get; set; }
     public string Message { get; set; } = string.Empty;
     public string Language { get; set; } = "en"; // en, bn
 }
@@ -92,7 +92,7 @@ public class CollectionOptimizationResponse
 }
 public class BranchPerformanceInsight
 {
-    public Guid BranchId { get; set; }
+    public int BranchId { get; set; }
     public string BranchName { get; set; } = string.Empty;
     public decimal RecoveryRate { get; set; }
     public decimal PortfolioAtRisk { get; set; } // PAR
@@ -102,7 +102,7 @@ public class BranchPerformanceInsight
 }
 public class OfficerPerformanceInsight
 {
-    public Guid OfficerId { get; set; }
+    public int OfficerId { get; set; }
     public string OfficerName { get; set; } = string.Empty;
     public decimal CollectionEfficiency { get; set; }
     public int AssignedMembers { get; set; }
@@ -123,7 +123,7 @@ public class HighRiskArea
 // Batch Prediction DTOs
 public class BatchRiskAssessmentRequest
 {
-    public List<Guid> MemberIds { get; set; } = new();
+    public List<int> MemberIds { get; set; } = new();
 }
 public class BatchRiskAssessmentResponse
 {
@@ -148,7 +148,7 @@ public class AITrainingDataResponse
 }
 public class TrainingDataRecord
 {
-    public Guid MemberId { get; set; }
+    public int MemberId { get; set; }
     public decimal LoanAmount { get; set; }
     public int DurationInWeeks { get; set; }
     public int Age { get; set; }

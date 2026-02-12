@@ -28,7 +28,7 @@ public class SavingsService : ISavingsService
         await _context.SaveChangesAsync();
         return account;
     }
-    public async Task<SavingsTransaction> DepositAsync(Guid accountId, decimal amount, Guid processedBy, string? remarks = null)
+    public async Task<SavingsTransaction> DepositAsync(int accountId, decimal amount, int processedBy, string? remarks = null)
     {
         if (amount <= 0)
             throw new Exception("Deposit amount must be greater than zero");
@@ -44,7 +44,6 @@ public class SavingsService : ISavingsService
             account.TotalDeposits += amount;
             var savingsTransaction = new SavingsTransaction
             {
-                Id = Guid.NewGuid(),
                 SavingsAccountId = accountId,
                 TransactionType = "Deposit",
                 Amount = amount,
@@ -67,7 +66,7 @@ public class SavingsService : ISavingsService
             throw;
         }
     }
-    public async Task<SavingsTransaction> WithdrawAsync(Guid accountId, decimal amount, Guid processedBy, string? remarks = null)
+    public async Task<SavingsTransaction> WithdrawAsync(int accountId, decimal amount, int processedBy, string? remarks = null)
     {
         if (amount <= 0)
             throw new Exception("Withdrawal amount must be greater than zero");
@@ -85,7 +84,6 @@ public class SavingsService : ISavingsService
             account.TotalWithdrawals += amount;
             var savingsTransaction = new SavingsTransaction
             {
-                Id = Guid.NewGuid(),
                 SavingsAccountId = accountId,
                 TransactionType = "Withdrawal",
                 Amount = amount,
@@ -108,13 +106,13 @@ public class SavingsService : ISavingsService
             throw;
         }
     }
-    public async Task<SavingsAccount?> GetAccountByMemberIdAsync(Guid memberId)
+    public async Task<SavingsAccount?> GetAccountByMemberIdAsync(int memberId)
     {
         return await _context.SavingsAccounts
             .Include(s => s.Transactions)
             .FirstOrDefaultAsync(s => s.MemberId == memberId);
     }
-    public async Task<decimal> GetBalanceAsync(Guid accountId)
+    public async Task<decimal> GetBalanceAsync(int accountId)
     {
         var account = await _context.SavingsAccounts.FindAsync(accountId);
         return account?.Balance ?? 0;

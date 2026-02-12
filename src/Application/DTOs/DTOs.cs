@@ -3,7 +3,7 @@ using Domain.Enums;
 namespace Application.DTOs;
 public class LoanApplicationDto
 {
-    public Guid MemberId { get; set; }
+    public int MemberId { get; set; }
     public LoanType LoanType { get; set; }
     public decimal LoanAmount { get; set; }
     public decimal InterestRate { get; set; }
@@ -13,20 +13,20 @@ public class LoanApplicationDto
 }
 public class LoanApprovalDto
 {
-    public Guid LoanId { get; set; }
-    public Guid ApprovedBy { get; set; }
+    public int LoanId { get; set; }
+    public int ApprovedBy { get; set; }
     public bool IsApproved { get; set; }
     public string? RejectionReason { get; set; }
 }
 public class PaymentDto
 {
-    public Guid LoanId { get; set; }
-    public Guid MemberId { get; set; }
-    public Guid? InstallmentId { get; set; }
+    public int LoanId { get; set; }
+    public int MemberId { get; set; }
+    public int? InstallmentId { get; set; }
     public decimal Amount { get; set; }
     public PaymentMethod PaymentMethod { get; set; }
     public string? TransactionReference { get; set; }
-    public Guid CollectedBy { get; set; }
+    public int CollectedBy { get; set; }
     public decimal? SavingsAmount { get; set; }
     public string? Remarks { get; set; }
 }
@@ -42,8 +42,8 @@ public class MemberRegistrationDto
     public string Phone { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public string Village { get; set; } = string.Empty;
-    public Guid BranchId { get; set; }
-    public Guid GroupId { get; set; }
+    public int BranchId { get; set; }
+    public int GroupId { get; set; }
     // Nominee
     public string NomineeName { get; set; } = string.Empty;
     public string NomineeRelation { get; set; } = string.Empty;
@@ -53,22 +53,22 @@ public class MemberRegistrationDto
 public class GroupCreationDto
 {
     public string GroupName { get; set; } = string.Empty;
-    public Guid BranchId { get; set; }
-    public Guid FieldOfficerId { get; set; }
+    public int BranchId { get; set; }
+    public int FieldOfficerId { get; set; }
     public DayOfWeek MeetingDay { get; set; }
     public TimeSpan MeetingTime { get; set; }
 }
 public class SavingsDepositDto
 {
-    public Guid AccountId { get; set; }
+    public int AccountId { get; set; }
     public decimal Amount { get; set; }
-    public Guid ProcessedBy { get; set; }
+    public int ProcessedBy { get; set; }
     public string? Remarks { get; set; }
 }
 public class SavingsWithdrawalDto
 {
-    public Guid AccountId { get; set; }
+    public int AccountId { get; set; }
     public decimal Amount { get; set; }
-    public Guid ProcessedBy { get; set; }
+    public int ProcessedBy { get; set; }
     public string? Remarks { get; set; }
 }

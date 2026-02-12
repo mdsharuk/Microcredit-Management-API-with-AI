@@ -6,7 +6,7 @@ public class Branch : BaseEntity
     public string Address { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public string? Email { get; set; }
-    public Guid? ManagerId { get; set; }
+    public int? ManagerId { get; set; }
     public bool IsActive { get; set; } = true;
     // Navigation
     public User? Manager { get; set; }

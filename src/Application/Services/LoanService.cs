@@ -42,7 +42,7 @@ public class LoanService : ILoanService
         await _context.SaveChangesAsync();
         return loan;
     }
-    public async Task<Loan> ApproveLoanAsync(Guid loanId, Guid approvedBy)
+    public async Task<Loan> ApproveLoanAsync(int loanId, int approvedBy)
     {
         var loan = await _context.Loans
             .Include(l => l.Member)
@@ -57,7 +57,7 @@ public class LoanService : ILoanService
         await _context.SaveChangesAsync();
         return loan;
     }
-    public async Task<Loan> DisburseLoanAsync(Guid loanId)
+    public async Task<Loan> DisburseLoanAsync(int loanId)
     {
         var loan = await _context.Loans.FindAsync(loanId);
         if (loan == null)
@@ -79,7 +79,7 @@ public class LoanService : ILoanService
         }
         return loan;
     }
-    public async Task<Loan?> GetLoanByIdAsync(Guid loanId)
+    public async Task<Loan?> GetLoanByIdAsync(int loanId)
     {
         return await _context.Loans
             .Include(l => l.Member)
@@ -87,14 +87,14 @@ public class LoanService : ILoanService
             .Include(l => l.Installments)
             .FirstOrDefaultAsync(l => l.Id == loanId);
     }
-    public async Task<List<Loan>> GetLoansByMemberIdAsync(Guid memberId)
+    public async Task<List<Loan>> GetLoansByMemberIdAsync(int memberId)
     {
         return await _context.Loans
             .Where(l => l.MemberId == memberId)
             .OrderByDescending(l => l.ApplicationDate)
             .ToListAsync();
     }
-    public async Task<List<Loan>> GetPendingLoansAsync(Guid? branchId = null)
+    public async Task<List<Loan>> GetPendingLoansAsync(int? branchId = null)
     {
         var query = _context.Loans
             .Include(l => l.Member)
@@ -105,7 +105,7 @@ public class LoanService : ILoanService
         }
         return await query.ToListAsync();
     }
-    public async Task<bool> HasActiveLoanAsync(Guid memberId)
+    public async Task<bool> HasActiveLoanAsync(int memberId)
     {
         return await _context.Loans
             .AnyAsync(l => l.MemberId == memberId && 
@@ -155,7 +155,6 @@ public class LoanService : ILoanService
         {
             var installment = new Installment
             {
-                Id = Guid.NewGuid(),
                 LoanId = loan.Id,
                 InstallmentNumber = i,
                 DueDate = startDate.AddDays(7 * i),
@@ -190,7 +189,7 @@ public class LoanService : ILoanService
         await _context.Installments.AddRangeAsync(installments);
         await _context.SaveChangesAsync();
     }
-    private async Task<string> GenerateLoanCodeAsync(Guid branchId)
+    private async Task<string> GenerateLoanCodeAsync(int branchId)
     {
         var branch = await _context.Branches.FindAsync(branchId);
         var branchCode = branch?.BranchCode ?? "BR";

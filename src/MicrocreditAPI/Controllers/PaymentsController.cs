@@ -21,7 +21,7 @@ public class PaymentsController : ControllerBase
     {
         try
         {
-            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
             var payment = new Payment
             {
                 LoanId = dto.LoanId,
@@ -42,19 +42,19 @@ public class PaymentsController : ControllerBase
         }
     }
     [HttpGet("loan/{loanId}")]
-    public async Task<IActionResult> GetLoanPayments(Guid loanId)
+    public async Task<IActionResult> GetLoanPayments(int loanId)
     {
         var payments = await _paymentService.GetPaymentsByLoanIdAsync(loanId);
         return Ok(payments);
     }
     [HttpGet("member/{memberId}")]
-    public async Task<IActionResult> GetMemberPayments(Guid memberId)
+    public async Task<IActionResult> GetMemberPayments(int memberId)
     {
         var payments = await _paymentService.GetPaymentsByMemberIdAsync(memberId);
         return Ok(payments);
     }
     [HttpGet("installment/{installmentId}/fine")]
-    public async Task<IActionResult> CalculateFine(Guid installmentId)
+    public async Task<IActionResult> CalculateFine(int installmentId)
     {
         var fine = await _paymentService.CalculateFineAsync(installmentId);
         return Ok(new { installmentId, fine });

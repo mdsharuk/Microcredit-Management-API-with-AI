@@ -29,7 +29,7 @@ public class LoansController : ControllerBase
                 InterestType = dto.InterestType,
                 DurationInWeeks = dto.DurationInWeeks,
                 Purpose = dto.Purpose,
-                BranchId = Guid.Parse(User.FindFirst("BranchId")?.Value ?? Guid.Empty.ToString())
+                BranchId = int.Parse(User.FindFirst("BranchId")?.Value ?? "0")
             };
             var createdLoan = await _loanService.CreateLoanApplicationAsync(loan);
             return CreatedAtAction(nameof(GetLoan), new { id = createdLoan.Id }, createdLoan);
@@ -40,7 +40,7 @@ public class LoansController : ControllerBase
         }
     }
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetLoan(Guid id)
+    public async Task<IActionResult> GetLoan(int id)
     {
         var loan = await _loanService.GetLoanByIdAsync(id);
         if (loan == null)
@@ -48,25 +48,25 @@ public class LoansController : ControllerBase
         return Ok(loan);
     }
     [HttpGet("member/{memberId}")]
-    public async Task<IActionResult> GetMemberLoans(Guid memberId)
+    public async Task<IActionResult> GetMemberLoans(int memberId)
     {
         var loans = await _loanService.GetLoansByMemberIdAsync(memberId);
         return Ok(loans);
     }
     [HttpGet("pending")]
     [Authorize(Roles = "Admin,BranchManager")]
-    public async Task<IActionResult> GetPendingLoans([FromQuery] Guid? branchId = null)
+    public async Task<IActionResult> GetPendingLoans([FromQuery] int? branchId = null)
     {
         var loans = await _loanService.GetPendingLoansAsync(branchId);
         return Ok(loans);
     }
     [HttpPut("{id}/approve")]
     [Authorize(Roles = "Admin,BranchManager")]
-    public async Task<IActionResult> ApproveLoan(Guid id)
+    public async Task<IActionResult> ApproveLoan(int id)
     {
         try
         {
-            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
             var loan = await _loanService.ApproveLoanAsync(id, userId);
             return Ok(loan);
         }
@@ -77,7 +77,7 @@ public class LoansController : ControllerBase
     }
     [HttpPut("{id}/disburse")]
     [Authorize(Roles = "Admin,BranchManager")]
-    public async Task<IActionResult> DisburseLoan(Guid id)
+    public async Task<IActionResult> DisburseLoan(int id)
     {
         try
         {
@@ -90,7 +90,7 @@ public class LoansController : ControllerBase
         }
     }
     [HttpGet("{id}/schedule")]
-    public async Task<IActionResult> GetInstallmentSchedule(Guid id)
+    public async Task<IActionResult> GetInstallmentSchedule(int id)
     {
         var schedule = await _loanService.GetInstallmentScheduleAsync(id);
         return Ok(schedule);

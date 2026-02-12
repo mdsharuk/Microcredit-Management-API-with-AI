@@ -3,9 +3,9 @@ namespace Domain.Entities;
 public class Loan : BaseEntity
 {
     public string LoanCode { get; set; } = string.Empty;
-    public Guid MemberId { get; set; }
-    public Guid BranchId { get; set; }
-    public Guid? GroupId { get; set; }
+    public int MemberId { get; set; }
+    public int BranchId { get; set; }
+    public int? GroupId { get; set; }
     public LoanType LoanType { get; set; }
     public decimal LoanAmount { get; set; }
     public decimal InterestRate { get; set; } // Yearly percentage
@@ -20,7 +20,7 @@ public class Loan : BaseEntity
     public DateTime ApplicationDate { get; set; }
     public DateTime? ApprovalDate { get; set; }
     public DateTime? DisbursementDate { get; set; }
-    public Guid? ApprovedBy { get; set; }
+    public int? ApprovedBy { get; set; }
     public string? RejectionReason { get; set; }
     // Tracking
     public decimal PaidAmount { get; set; }

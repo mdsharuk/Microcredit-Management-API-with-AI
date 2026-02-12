@@ -4,40 +4,40 @@ namespace Application.Interfaces;
 public interface ILoanService
 {
     Task<Loan> CreateLoanApplicationAsync(Loan loan);
-    Task<Loan> ApproveLoanAsync(Guid loanId, Guid approvedBy);
-    Task<Loan> DisburseLoanAsync(Guid loanId);
-    Task<Loan?> GetLoanByIdAsync(Guid loanId);
-    Task<List<Loan>> GetLoansByMemberIdAsync(Guid memberId);
-    Task<List<Loan>> GetPendingLoansAsync(Guid? branchId = null);
-    Task<bool> HasActiveLoanAsync(Guid memberId);
-    Task<List<Installment>> GetInstallmentScheduleAsync(Guid loanId);
+    Task<Loan> ApproveLoanAsync(int loanId, int approvedBy);
+    Task<Loan> DisburseLoanAsync(int loanId);
+    Task<Loan?> GetLoanByIdAsync(int loanId);
+    Task<List<Loan>> GetLoansByMemberIdAsync(int memberId);
+    Task<List<Loan>> GetPendingLoansAsync(int? branchId = null);
+    Task<bool> HasActiveLoanAsync(int memberId);
+    Task<List<Installment>> GetInstallmentScheduleAsync(int loanId);
 }
 public interface IPaymentService
 {
     Task<Payment> RecordPaymentAsync(Payment payment);
-    Task<List<Payment>> GetPaymentsByLoanIdAsync(Guid loanId);
-    Task<List<Payment>> GetPaymentsByMemberIdAsync(Guid memberId);
-    Task<decimal> CalculateFineAsync(Guid installmentId);
+    Task<List<Payment>> GetPaymentsByLoanIdAsync(int loanId);
+    Task<List<Payment>> GetPaymentsByMemberIdAsync(int memberId);
+    Task<decimal> CalculateFineAsync(int installmentId);
 }
 public interface ISavingsService
 {
     Task<SavingsAccount> CreateSavingsAccountAsync(SavingsAccount account);
-    Task<SavingsTransaction> DepositAsync(Guid accountId, decimal amount, Guid processedBy, string? remarks = null);
-    Task<SavingsTransaction> WithdrawAsync(Guid accountId, decimal amount, Guid processedBy, string? remarks = null);
-    Task<SavingsAccount?> GetAccountByMemberIdAsync(Guid memberId);
-    Task<decimal> GetBalanceAsync(Guid accountId);
+    Task<SavingsTransaction> DepositAsync(int accountId, decimal amount, int processedBy, string? remarks = null);
+    Task<SavingsTransaction> WithdrawAsync(int accountId, decimal amount, int processedBy, string? remarks = null);
+    Task<SavingsAccount?> GetAccountByMemberIdAsync(int memberId);
+    Task<decimal> GetBalanceAsync(int accountId);
 }
 public interface IAccountingService
 {
-    Task RecordLoanDisbursementAsync(Loan loan, Guid userId);
-    Task RecordLoanRepaymentAsync(Payment payment, Guid userId);
-    Task RecordSavingsTransactionAsync(SavingsTransaction transaction, Guid userId);
+    Task RecordLoanDisbursementAsync(Loan loan, int userId);
+    Task RecordLoanRepaymentAsync(Payment payment, int userId);
+    Task RecordSavingsTransactionAsync(SavingsTransaction transaction, int userId);
 }
 public interface IReportService
 {
-    Task<BranchReportDto> GetBranchReportAsync(Guid branchId, DateTime? startDate = null, DateTime? endDate = null);
-    Task<List<OverdueReportDto>> GetOverdueReportAsync(Guid? branchId = null);
-    Task<OfficerPerformanceDto> GetOfficerPerformanceAsync(Guid officerId, DateTime? startDate = null, DateTime? endDate = null);
+    Task<BranchReportDto> GetBranchReportAsync(int branchId, DateTime? startDate = null, DateTime? endDate = null);
+    Task<List<OverdueReportDto>> GetOverdueReportAsync(int? branchId = null);
+    Task<OfficerPerformanceDto> GetOfficerPerformanceAsync(int officerId, DateTime? startDate = null, DateTime? endDate = null);
 }
 // DTOs for reports
 public class BranchReportDto

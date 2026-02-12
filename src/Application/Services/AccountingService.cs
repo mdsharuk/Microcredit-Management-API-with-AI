@@ -7,18 +7,17 @@ namespace Application.Services;
 public class AccountingService : IAccountingService
 {
     private readonly MicrocreditDbContext _context;
-    private Dictionary<string, Guid> _accountCache = new();
+    private Dictionary<string, int> _accountCache = new();
     public AccountingService(MicrocreditDbContext context)
     {
         _context = context;
     }
-    public async Task RecordLoanDisbursementAsync(Loan loan, Guid userId)
+    public async Task RecordLoanDisbursementAsync(Loan loan, int userId)
     {
         var loanReceivableAccount = await GetOrCreateLedgerAccountAsync("LOAN_RECEIVABLE", "Loan Receivable", AccountType.Asset);
         var cashAccount = await GetOrCreateLedgerAccountAsync("CASH", "Cash", AccountType.Asset);
         var transaction = new Transaction
         {
-            Id = Guid.NewGuid(),
             TransactionCode = await GenerateTransactionCodeAsync(),
             TransactionDate = DateTime.UtcNow,
             TransactionType = TransactionType.LoanDisbursement,
@@ -36,7 +35,7 @@ public class AccountingService : IAccountingService
         _context.Transactions.Add(transaction);
         await _context.SaveChangesAsync();
     }
-    public async Task RecordLoanRepaymentAsync(Payment payment, Guid userId)
+    public async Task RecordLoanRepaymentAsync(Payment payment, int userId)
     {
         var cashAccount = await GetOrCreateLedgerAccountAsync("CASH", "Cash", AccountType.Asset);
         var loanReceivableAccount = await GetOrCreateLedgerAccountAsync("LOAN_RECEIVABLE", "Loan Receivable", AccountType.Asset);
@@ -45,7 +44,6 @@ public class AccountingService : IAccountingService
         {
             var principalTransaction = new Transaction
             {
-                Id = Guid.NewGuid(),
                 TransactionCode = await GenerateTransactionCodeAsync(),
                 TransactionDate = DateTime.UtcNow,
                 TransactionType = TransactionType.LoanRepayment,
@@ -67,7 +65,6 @@ public class AccountingService : IAccountingService
         {
             var interestTransaction = new Transaction
             {
-                Id = Guid.NewGuid(),
                 TransactionCode = await GenerateTransactionCodeAsync(),
                 TransactionDate = DateTime.UtcNow,
                 TransactionType = TransactionType.InterestIncome,
@@ -90,7 +87,6 @@ public class AccountingService : IAccountingService
             var fineIncomeAccount = await GetOrCreateLedgerAccountAsync("FINE_INCOME", "Fine Income", AccountType.Income);
             var fineTransaction = new Transaction
             {
-                Id = Guid.NewGuid(),
                 TransactionCode = await GenerateTransactionCodeAsync(),
                 TransactionDate = DateTime.UtcNow,
                 TransactionType = TransactionType.FineCollection,
@@ -110,7 +106,7 @@ public class AccountingService : IAccountingService
         }
         await _context.SaveChangesAsync();
     }
-    public async Task RecordSavingsTransactionAsync(SavingsTransaction savingsTransaction, Guid userId)
+    public async Task RecordSavingsTransactionAsync(SavingsTransaction savingsTransaction, int userId)
     {
         var cashAccount = await GetOrCreateLedgerAccountAsync("CASH", "Cash", AccountType.Asset);
         var savingsLiabilityAccount = await GetOrCreateLedgerAccountAsync("SAVINGS_LIABILITY", "Savings Liability", AccountType.Liability);
@@ -119,7 +115,6 @@ public class AccountingService : IAccountingService
         {
             transaction = new Transaction
             {
-                Id = Guid.NewGuid(),
                 TransactionCode = await GenerateTransactionCodeAsync(),
                 TransactionDate = DateTime.UtcNow,
                 TransactionType = TransactionType.SavingsDeposit,
@@ -138,7 +133,6 @@ public class AccountingService : IAccountingService
         {
             transaction = new Transaction
             {
-                Id = Guid.NewGuid(),
                 TransactionCode = await GenerateTransactionCodeAsync(),
                 TransactionDate = DateTime.UtcNow,
                 TransactionType = TransactionType.SavingsWithdrawal,
@@ -170,7 +164,6 @@ public class AccountingService : IAccountingService
         {
             account = new LedgerAccount
             {
-                Id = Guid.NewGuid(),
                 AccountCode = accountCode,
                 AccountName = accountName,
                 AccountType = accountType,

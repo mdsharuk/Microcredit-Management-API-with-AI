@@ -19,7 +19,7 @@ public class MembersController : ControllerBase
         _savingsService = savingsService;
     }
     [HttpGet]
-    public async Task<IActionResult> GetMembers([FromQuery] Guid? branchId = null, [FromQuery] Guid? groupId = null)
+    public async Task<IActionResult> GetMembers([FromQuery] int? branchId = null, [FromQuery] int? groupId = null)
     {
         var query = _context.Members
             .Include(m => m.Branch)
@@ -34,7 +34,7 @@ public class MembersController : ControllerBase
         return Ok(members);
     }
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetMember(Guid id)
+    public async Task<IActionResult> GetMember(int id)
     {
         var member = await _context.Members
             .Include(m => m.Branch)
@@ -64,7 +64,6 @@ public class MembersController : ControllerBase
             var memberCode = await GenerateMemberCodeAsync(dto.BranchId);
             var member = new Member
             {
-                Id = Guid.NewGuid(),
                 MemberCode = memberCode,
                 FullName = dto.FullName,
                 FatherName = dto.FatherName,
@@ -105,7 +104,7 @@ public class MembersController : ControllerBase
         }
     }
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateMember(Guid id, [FromBody] Member member)
+    public async Task<IActionResult> UpdateMember(int id, [FromBody] Member member)
     {
         if (id != member.Id)
             return BadRequest();
@@ -121,7 +120,7 @@ public class MembersController : ControllerBase
         return Ok(existing);
     }
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteMember(Guid id)
+    public async Task<IActionResult> DeleteMember(int id)
     {
         var member = await _context.Members.FindAsync(id);
         if (member == null)
@@ -131,7 +130,7 @@ public class MembersController : ControllerBase
         await _context.SaveChangesAsync();
         return NoContent();
     }
-    private async Task<string> GenerateMemberCodeAsync(Guid branchId)
+    private async Task<string> GenerateMemberCodeAsync(int branchId)
     {
         var branch = await _context.Branches.FindAsync(branchId);
         var branchCode = branch?.BranchCode ?? "BR";

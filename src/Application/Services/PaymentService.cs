@@ -115,21 +115,21 @@ public class PaymentService : IPaymentService
             throw;
         }
     }
-    public async Task<List<Payment>> GetPaymentsByLoanIdAsync(Guid loanId)
+    public async Task<List<Payment>> GetPaymentsByLoanIdAsync(int loanId)
     {
         return await _context.Payments
             .Where(p => p.LoanId == loanId)
             .OrderByDescending(p => p.PaymentDate)
             .ToListAsync();
     }
-    public async Task<List<Payment>> GetPaymentsByMemberIdAsync(Guid memberId)
+    public async Task<List<Payment>> GetPaymentsByMemberIdAsync(int memberId)
     {
         return await _context.Payments
             .Where(p => p.MemberId == memberId)
             .OrderByDescending(p => p.PaymentDate)
             .ToListAsync();
     }
-    public async Task<decimal> CalculateFineAsync(Guid installmentId)
+    public async Task<decimal> CalculateFineAsync(int installmentId)
     {
         var installment = await _context.Installments.FindAsync(installmentId);
         if (installment == null)

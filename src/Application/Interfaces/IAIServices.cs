@@ -55,7 +55,7 @@ public interface IAIFraudDetectionService
     /// <summary>
     /// Detect suspicious group formation patterns
     /// </summary>
-    Task<FraudDetectionResponse> DetectSuspiciousGroupAsync(Guid groupId);
+    Task<FraudDetectionResponse> DetectSuspiciousGroupAsync(int groupId);
 }
 /// <summary>
 /// AI-powered chatbot service for member inquiries
@@ -70,15 +70,15 @@ public interface IAIChatbotService
     /// <summary>
     /// Get member's loan balance
     /// </summary>
-    Task<ChatbotResponse> GetBalanceInquiryAsync(Guid memberId);
+    Task<ChatbotResponse> GetBalanceInquiryAsync(int memberId);
     /// <summary>
     /// Get next payment details
     /// </summary>
-    Task<ChatbotResponse> GetNextPaymentAsync(Guid memberId);
+    Task<ChatbotResponse> GetNextPaymentAsync(int memberId);
     /// <summary>
     /// Get loan status information
     /// </summary>
-    Task<ChatbotResponse> GetLoanStatusAsync(Guid memberId);
+    Task<ChatbotResponse> GetLoanStatusAsync(int memberId);
 }
 /// <summary>
 /// AI-powered collection optimization service
@@ -105,7 +105,7 @@ public interface IAICollectionOptimizationService
     /// <summary>
     /// Predict next month's collection performance
     /// </summary>
-    Task<decimal> PredictNextMonthCollectionAsync(Guid? branchId = null);
+    Task<decimal> PredictNextMonthCollectionAsync(int? branchId = null);
 }
 /// <summary>
 /// Service to export training data for AI model development
