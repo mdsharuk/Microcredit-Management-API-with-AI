@@ -113,7 +113,7 @@ public class LoanService : ILoanService
                            l.Status == LoanStatus.Disbursed || 
                            l.Status == LoanStatus.Active));
     }
-    public async Task<List<Installment>> GetInstallmentScheduleAsync(Guid loanId)
+    public async Task<List<Installment>> GetInstallmentScheduleAsync(int loanId)
     {
         return await _context.Installments
             .Where(i => i.LoanId == loanId)

@@ -12,7 +12,6 @@ public static class SeedData
             var adminConfig = configuration.GetSection("DefaultAdmin");
             var adminUser = new User
             {
-                Id = Guid.NewGuid(),
                 Username = adminConfig["Username"] ?? "admin",
                 Email = adminConfig["Email"] ?? "admin@microcredit.com",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminConfig["Password"] ?? "Admin@123"),
@@ -31,7 +30,6 @@ public static class SeedData
             {
                 new LedgerAccount
                 {
-                    Id = Guid.NewGuid(),
                     AccountCode = "CASH",
                     AccountName = "Cash",
                     AccountType = AccountType.Asset,
@@ -41,7 +39,6 @@ public static class SeedData
                 },
                 new LedgerAccount
                 {
-                    Id = Guid.NewGuid(),
                     AccountCode = "LOAN_RECEIVABLE",
                     AccountName = "Loan Receivable",
                     AccountType = AccountType.Asset,
@@ -51,7 +48,6 @@ public static class SeedData
                 },
                 new LedgerAccount
                 {
-                    Id = Guid.NewGuid(),
                     AccountCode = "SAVINGS_LIABILITY",
                     AccountName = "Savings Liability",
                     AccountType = AccountType.Liability,
@@ -61,7 +57,6 @@ public static class SeedData
                 },
                 new LedgerAccount
                 {
-                    Id = Guid.NewGuid(),
                     AccountCode = "INTEREST_INCOME",
                     AccountName = "Interest Income",
                     AccountType = AccountType.Income,
@@ -71,7 +66,6 @@ public static class SeedData
                 },
                 new LedgerAccount
                 {
-                    Id = Guid.NewGuid(),
                     AccountCode = "FINE_INCOME",
                     AccountName = "Fine Income",
                     AccountType = AccountType.Income,

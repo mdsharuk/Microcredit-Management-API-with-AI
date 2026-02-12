@@ -76,8 +76,8 @@ public class ChatbotResponse
 // Collection Optimization DTOs
 public class CollectionOptimizationRequest
 {
-    public Guid? BranchId { get; set; }
-    public Guid? OfficerId { get; set; }
+    public int? BranchId { get; set; }
+    public int? OfficerId { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }
 }

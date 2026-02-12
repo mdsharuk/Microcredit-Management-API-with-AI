@@ -47,7 +47,6 @@ public class MicrocreditDbContext : DbContext
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedAt = DateTime.UtcNow;
-                entry.Entity.Id = Guid.NewGuid();
             }
             if (entry.State == EntityState.Modified)
             {
